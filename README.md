@@ -1,5 +1,5 @@
 ## r_upgrade_ui
-[![pub package](https://img.shields.io/pub/v/r_upgrade.svg)](https://pub.dartlang.org/packages/r_upgrade_ui)
+[![pub package](https://img.shields.io/pub/v/r_upgrade_ui.svg)](https://pub.dartlang.org/packages/r_upgrade_ui)
 
 [r_upgrade](https://pub.dev/packages/r_upgrade) UI Packages,simple to use.
 
