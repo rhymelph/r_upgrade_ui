@@ -10,27 +10,43 @@ class RUpgradeAndroidInfo {
 
   Map<String, String>? downloadHeader;
 
+  // you want to download url.
   String? downloadUrl;
 
+  // you want to download file name
   String? downloadFileName;
 
+  // Is finish download? ** read only
   bool? _downloadIsFinish;
 
+  // auto install when download finish.
   bool? downloadFinishAutoInstall;
 
+  // Is finish download? ** read only
   bool? get downloadIsFinish => _downloadIsFinish;
 
+  // android store id.
   String? storeId;
 
+  // web download url
   String? webUrl;
 
+  // download id ** read only
   int? _downloadId;
 
+  // download id ** read only
   int? get downloadId => _downloadId;
 
+  // use last upgrade cache from this version.
+  bool downloadUseCache = true;
+
+  // notification visibility
   NotificationVisibility? notificationVisibility;
+
+  // notification style
   NotificationStyle? notificationStyle;
 
+  // upgrade from store
   Future<bool?> upgradeFromStore() async {
     List<AndroidStore>? storeList = await RUpgrade.androidStores;
     if (storeList != null && storeList.isNotEmpty) {
@@ -47,6 +63,7 @@ class RUpgradeAndroidInfo {
     return false;
   }
 
+  // check is finish
   Future<bool> checkIsFinish() async {
     _downloadIsFinish = false;
     _downloadId = await RUpgrade.getLastUpgradedId();
@@ -60,23 +77,29 @@ class RUpgradeAndroidInfo {
     return false;
   }
 
+  // upgrade form download
   Future<bool> upgradeFromDownload() async {
     bool shouldRestartDownload = false;
     _downloadIsFinish = false;
-    _downloadId = await RUpgrade.getLastUpgradedId();
-    if (_downloadId != null) {
-      final status = await RUpgrade.getDownloadStatus(_downloadId!);
-      if (status == DownloadStatus.STATUS_SUCCESSFUL) {
-        _downloadIsFinish = true;
-        await RUpgrade.upgradeWithId(_downloadId!);
-      } else if (status == DownloadStatus.STATUS_FAILED) {
-        shouldRestartDownload = true;
-      } else {
-        await RUpgrade.upgradeWithId(_downloadId!);
-      }
-    } else {
+    if (downloadUseCache != true) {
       shouldRestartDownload = true;
+    } else {
+      _downloadId = await RUpgrade.getLastUpgradedId();
+      if (_downloadId != null) {
+        final status = await RUpgrade.getDownloadStatus(_downloadId!);
+        if (status == DownloadStatus.STATUS_SUCCESSFUL) {
+          _downloadIsFinish = true;
+          await RUpgrade.upgradeWithId(_downloadId!);
+        } else if (status == DownloadStatus.STATUS_FAILED) {
+          shouldRestartDownload = true;
+        } else {
+          await RUpgrade.upgradeWithId(_downloadId!);
+        }
+      } else {
+        shouldRestartDownload = true;
+      }
     }
+
     if (shouldRestartDownload) {
       assert(downloadUrl != null, 'Please set android downloadUrl');
       _downloadId = await RUpgrade.upgrade(
@@ -93,6 +116,7 @@ class RUpgradeAndroidInfo {
     return false;
   }
 
+  //download stream
   Stream<DownloadInfo> downloadStream() => RUpgrade.stream;
 
   @override
@@ -133,10 +157,14 @@ class RUpgradeAndroidInfo {
 }
 
 class RUpgradeIOSInfo {
+
+  // app store id
   String? appId;
 
+  // web download url
   String? webUrl;
 
+  // is use china appstore?
   bool isChina = true;
 
   Future<bool?> upgradeFromStore() async {

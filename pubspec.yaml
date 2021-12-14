@@ -1,6 +1,6 @@
 name: r_upgrade_ui
-description: A new Flutter plugins about r_upgrade plugins ui.
-version: 0.0.1
+description: A new Flutter package about r_upgrade plugins ui.
+version: 0.1.0
 homepage: https://github.com/rhymelph/r_upgrade_ui
 
 environment:

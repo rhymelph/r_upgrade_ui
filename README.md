@@ -1,8 +1,79 @@
 ## r_upgrade_ui
+[![pub package](https://img.shields.io/pub/v/r_upgrade.svg)](https://pub.dartlang.org/packages/r_upgrade_ui)
 
-this plugin developing.
+[r_upgrade](https://pub.dev/packages/r_upgrade) UI Packages,simple to use.
+
+## How to use?
+
+1. add plugin to your `pubspec.yaml`
+
+```yaml
+dependencies:
+  r_upgrade_ui: last_version
+```
+
+2. Create RUpgradeInfo class.
+
+```dart
+
+RUpgradeInfo rUpgradeInfo = RUpgradeInfo()
+  ..androidInfo = (RUpgradeAndroidInfo()
+    ..webUrl = 'http://www.baidu.com'
+    ..downloadUrl =
+        'https://mydata-1252536312.cos.ap-guangzhou.myqcloud.com/r_upgrade.apk'
+    ..downloadFileName = 'r_upgrade.apk'
+    ..downloadFinishAutoInstall = true
+    ..downloadUseCache = false
+    ..upgradeFlavor = RUpgradeFlavor.normal
+    ..notificationVisibility = NotificationVisibility.VISIBILITY_VISIBLE
+    ..notificationStyle = NotificationStyle.planTime)
+  ..iosInfo = (RUpgradeIOSInfo()
+    ..webUrl = 'http://www.google.com'
+    ..isChina = false
+    ..appId = '414478124')
+  ..isForce = true
+  ..newVersion = 'v1.0.1'
+  ..newVersionCode = 1
+  ..content = '1.fixed bug,\n2.fixed bug again'
+  ..title = 'New Version';
+```
+
+3. Use Normal Download Dialog.
+
+```dart
+    rUpgradeInfo.showNormalDialog(context);
+```
+
+4. android upgrade method.
+
+```dart
+  // upgrade from store
+rUpgradeInfo.androidInfo.upgradeFromStore();
+
+// upgrade from download
+rUpgradeInfo.androidInfo.upgradeFromDownload();
+```
+
+5. ios upgrade method.
+
+```dart
+  // upgrade from store
+rUpgradeInfo.iosInfo.upgradeFromStore();
+
+```
+
+6. share method.
+
+```dart
+  // upgrade from store
+rUpgradeInfo.upgradeFromStore();
+
+// upgrade from url
+rUpgradeInfo.upgradeFromUrl();
+```
 
 ## LICENSE
+
     Copyright 2021 The r_upgrade_ui Project Authors
 
     Licensed under the Apache License, Version 2.0 (the "License");
