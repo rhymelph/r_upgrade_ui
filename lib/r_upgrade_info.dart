@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:r_upgrade/r_upgrade.dart';
 
 import 'r_upgrade_ui.dart';
 
