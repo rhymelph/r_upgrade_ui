@@ -156,7 +156,6 @@ class RUpgradeAndroidInfo {
 }
 
 class RUpgradeIOSInfo {
-
   // app store id
   String? appId;
 

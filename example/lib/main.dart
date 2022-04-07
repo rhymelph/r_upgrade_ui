@@ -64,7 +64,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ListTile(
             onTap: () {
               rUpgradeInfo.showNormalDialog(context);
-
             },
             title: const Text('Normal Style'),
             trailing: Icon(Icons.arrow_right_outlined),
