@@ -146,11 +146,15 @@ class _RUpgradeNormalDialogState extends State<RUpgradeNormalDialog>
                               : '--mb/s',
                           style: Theme.of(context).textTheme.bodyText1,
                         ),
-                        Text(
-                          snapshot.hasData
-                              ? '${snapshot.data!.percent!.toStringAsFixed(1)} %'
-                              : '0.0%',
-                          style: Theme.of(context).textTheme.bodyText1,
+                        Visibility(
+                          child: Text(
+                            snapshot.hasData
+                                ? '${snapshot.data!.percent!.toStringAsFixed(1)} %'
+                                : '0.0%',
+                            style: Theme.of(context).textTheme.bodyText1,
+                          ),
+                          visible:
+                              snapshot.hasData && snapshot.data!.percent! > 0,
                         ),
                       ],
                     );
@@ -169,6 +173,23 @@ class _RUpgradeNormalDialogState extends State<RUpgradeNormalDialog>
               child: StreamBuilder<DownloadInfo>(
                   stream: widget.info.androidInfo.downloadStream(),
                   builder: (context, AsyncSnapshot<DownloadInfo> snapshot) {
+                    if (snapshot.hasData && snapshot.data!.maxLength == -1) {
+                      return AnimatedContainer(
+                        height: enterNewStatus2 ? 30 : 40,
+                        duration:
+                            const Duration(milliseconds: _kAnimationDuration),
+                        clipBehavior: Clip.antiAlias,
+                        decoration: BoxDecoration(
+                            color: enterNewStatus2
+                                ? Colors.white
+                                : Theme.of(context).primaryColor,
+                            borderRadius:
+                                BorderRadius.circular(enterNewStatus2 ? 8 : 0)),
+                        child: LinearProgressIndicator(
+                          minHeight: enterNewStatus2 ? 30 : 40,
+                        ),
+                      );
+                    }
                     return AnimationShaderMask(
                       stops: const [1, 0],
                       colors: [
