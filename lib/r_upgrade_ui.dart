@@ -323,7 +323,7 @@ class _RUpgradeNormalDialogState extends State<RUpgradeNormalDialog>
           enterNewStatus = true;
         });
         widget.info.androidInfo.upgradeFromDownload();
-        WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+        WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
           setState(() {
             enterNewStatus2 = true;
           });

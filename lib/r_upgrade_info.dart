@@ -220,6 +220,7 @@ class RUpgradeInfo {
     } else if (Platform.isIOS) {
       return await iosInfo.upgradeFromStore();
     }
+    return null;
   }
 
   Future<dynamic> showNormalDialog(BuildContext context) async {
